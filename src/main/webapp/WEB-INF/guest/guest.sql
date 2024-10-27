@@ -17,14 +17,14 @@ insert into guest values (default, '관리자', '방명록 서비스를 시작�
 
 select * from guest;
 
-insert	into	guest	values	(default,	'홍길동',	" '방명록 서비스 환영합니다.자주 방문하겠습니다..',"	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.52');
+insert	into	guest	values	(default,	'홍길동',	'방명록 서비스 환영합니다.자주 방문하겠습니다..',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.52');
 insert	into	guest	values	(default,	'이기자',	 '좋은 사진 놓고 갑니다.<br><img src=""https://www.w3schools.com/w3css/img_5terre.jpg"">',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
-insert	into	guest	values	(default,	'스티브',	" '좋은 소식 전하러왔습니다~~<br>',"	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
+insert	into	guest	values	(default,	'스티브',	 '좋은 소식 전하러왔습니다~~<br>',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
 insert	into	guest	values	(default,	'찰 스',	 '또 놀라왔어요',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
-insert	into	guest	values	(default,	'방랑객',	" '반갑습니다<br><img src=""https://cdn.pixabay.com/photo/2023/02/22/19/13/tea-ceremony-7807230_640.jpg"">',"	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
-insert	into	guest	values	(default,	'관람객',	 '>HI~ ;)',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
+insert	into	guest	values	(default,	'방랑객', '반갑습니다<br><img src="https://cdn.pixabay.com/photo/2023/02/22/19/13/tea-ceremony-7807230_640.jpg">',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.55');
+insert	into	guest	values	(default,	'관람객',	 'HI~ ;)',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
 insert	into	guest	values	(default,	'낯선이',	 '안녕하세요',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
-insert	into	guest	values	(default,	'로또',	 '<긴급>좋은 소식 입니다.',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
+insert	into	guest	values	(default,	'로또',	 '긴급!!좋은 소식 입니다.',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
 insert	into	guest	values	(default,	'오하늘',	 '하늘이네 블로그 놀러오세요~~',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.56');
 insert	into	guest	values	(default,	'김말숙',	 '전세계를 뒤흔든 놀라운 소식 지금 확인하세요<br><img src=""https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202410/25/IZE/20241025132508964durl.jpg"">',	'green@gmail.com',	'blog.naver.com',	 default,	'192.168.50.58');
 insert	into	guest	values	(default,	'인사',	 '호국보은의 달 행사 소식입니다',	'green@kakao.com',	'tistory.com',	 default,	'192.168.50.58');
@@ -36,9 +36,9 @@ insert	into	guest	values	(default,	'광고',	 '오늘의 운세 확인하세요<
 insert	into	guest	values	(default,	'인사드립니다',	 '방문 요청드립니다.<br>메일로 연락주세요',	'green@gmail.com',	'tistory.com',	 default,	'192.168.50.60');
 insert	into	guest	values	(default,	'요청',	 '문의드립니다',	'green@gmail.com',	'tistory.com',	 default,	'192.168.50.64');
 insert	into	guest	values	(default,	'김말숙',	 '덤디 덤덤',	'green@daum.com',	'tistory.com',	 default,	'192.168.50.64');
-insert	into	guest	values	(default,	'왕안영',	" '홈페이지 변경하였습니다.<br>방문하셔서 확인해 주세요</td>',"	'green@daum.com',	'tistory.com',	 default,	'192.168.50.65');
-insert	into	guest	values	(default,	'김하늘',	" '더미더미<br>더미더미<br>덤덤덤덤',"	'green@daum.com',	'tistory.com',	 default,	'192.168.50.65');
-insert	into	guest	values	(default,	'가나다',	" '아파트 아파트<br>아파트 아파트',"	'green@daum.com',	'tistory.com',	 default,	'192.168.50.20');
+insert	into	guest	values	(default,	'왕안영', '홈페이지 변경하였습니다.<br>방문하셔서 확인해 주세요</td>',	'green@daum.com',	'tistory.com',	 default,	'192.168.50.65');
+insert	into	guest	values	(default,	'김하늘',	 '더미더미<br>더미더미<br>덤덤덤덤',	'green@daum.com',	'tistory.com',	 default,	'192.168.50.65');
+insert	into	guest	values	(default,	'가나다',	 '아파트 아파트<br>아파트 아파트',	'green@daum.com',	'tistory.com',	 default,	'192.168.50.20');
 
 
 insert	into	guest	values	(default,	'홍길동',	 '방명록 서비스 환영합니다.자주 방문하겠습니다..',	'green@naver.com',	'blog.naver.com',	 default,	'192.168.50.52');

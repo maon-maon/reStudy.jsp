@@ -20,7 +20,7 @@ public class GuestController extends HttpServlet {
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/")+1, com.lastIndexOf("."));
 		System.out.println("com : "+com);
-		
+
 		if(com.equals("GuestList")) {
 			command = new GuestListCommand();//GuestListCommand를 생성하는데 GuestInterface인터페이스 타입으로 만듦 
 			command.execute(request, response);
@@ -29,8 +29,26 @@ public class GuestController extends HttpServlet {
 		else if(com.equals("GuestInput")) {//반환값 없음= 커맨드에서 dao로 접속해 처리할 내용이 없음
 			viewPage +="guestInput.jsp";
 		}
-		if(com.equals("GuestInputOk")) {
+		else if(com.equals("GuestInputOk")) {
 			command = new GuestInputOkCommand();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
+		}
+		else if(com.equals("GuestAdmin")) {
+			viewPage +="guestAdmin.jsp";
+		}
+		else if(com.equals("GuestAdminOk")) {
+			command = new GuestAdminOkCommand();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
+		}
+		else if(com.equals("GuestAdminOut")) {
+			command = new GuestAdminOutCommand();
+			command.execute(request, response);
+			viewPage ="/include/message.jsp";
+		}
+		else if(com.equals("GuestDeleteOk")) {
+			command = new GuestDeleteOkCommand();
 			command.execute(request, response);
 			viewPage ="/include/message.jsp";
 		}

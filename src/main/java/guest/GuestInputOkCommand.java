@@ -16,6 +16,9 @@ public class GuestInputOkCommand implements GuestInterface {
 		String content = request.getParameter("content")==null ? "" : request.getParameter("content");
 		String hostIp = request.getParameter("hostIp")==null ? "" : request.getParameter("hostIp");
 		
+		name = name.replace("<", "&lt");
+		name = name.replace(">", "&gt");
+		
 		GuestDAO dao = new GuestDAO();
 		GuestVO vo = new GuestVO();
 		

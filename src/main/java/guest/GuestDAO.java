@@ -59,11 +59,16 @@ public class GuestDAO {
 
 	
 	// DB에 있는 방명록 전체자료 가져오기
-	public List<GuestVO> getGuestList() {
+	public List<GuestVO> getGuestList(int startIndexNo, int pageSize) {
 		List<GuestVO> vos = new ArrayList<GuestVO>();
 		try {
-			sql = "select * from guest order by idx desc";
+//			sql = "select * from guest order by idx desc";
+//			pstmt = conn.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+			sql = "select * from guest order by idx desc limit ?,?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -104,6 +109,40 @@ public class GuestDAO {
 			pstmtClose();
 		}
 		return res;
+	}
+
+	// 방명록 삭제
+	public int GuestDeleteOk(int idx) {
+		int res = 0;
+		try {
+			sql = "delete from guest where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		}finally {
+			pstmtClose();
+		}
+		return res;
+	}
+	
+	// DB에 저장된 총 레코드 수를 확인
+	public int getTotRecCnt() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(*) as cnt from guest";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totRecCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		}finally {
+			rsClose();
+		}
+		return totRecCnt;
 	}
 	
 	
