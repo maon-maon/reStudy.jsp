@@ -13,7 +13,7 @@
   <jsp:include page="/include/header.jsp"/>
   <jsp:include page="/include/nav.jsp"/>
 <p><br/><p>
-  	<h2>로그인</h2>
+  	<h2>관 리 자 로 그 인</h2>
 	<form name="myform" method="post" action="GuestAdminOk.gu">
 		<div>아이디 : 
 			<input type="text" id="mid" name="mid" value="admin" class="form-control mb-2" required autofocus placeholder="아이디를 입력하세요" />
