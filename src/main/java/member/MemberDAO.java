@@ -34,7 +34,9 @@ public class MemberDAO {
 	}
 	
 	//Member테이블에서 아이디 검색하기
-	public MemberVO MemberIdCheck(String mid) {
+	//아이디 중복 확인
+	//닉네임 중복 확인
+	public MemberVO getMemberIdCheck(String mid) {
 		vo = new MemberVO();
 		
 		try {
@@ -64,7 +66,7 @@ public class MemberDAO {
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				vo.setStartDate(rs.getString("startDate"));
 				vo.setLastDate(rs.getString("lastDate"));
-				vo.setSalt(rs.getString("salt"));
+				//vo.setSalt(rs.getString("salt"));
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 오류: " +e.getMessage());
@@ -87,6 +89,35 @@ public class MemberDAO {
 			pstmtClose();
 		}		
 	}
+	
+	// 회원가입 처리
+	public int setMemberJoinOk(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into member values(default,?,?,?,?,?,?,?,?,?,?,?,?,default,default,default,default,default,default,default)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getNickName());
+			pstmt.setString(4, vo.getName());
+			pstmt.setString(5, vo.getGender());
+			pstmt.setString(6, vo.getBirthday());
+			pstmt.setString(7, vo.getTel());
+			pstmt.setString(8, vo.getAddress());
+			pstmt.setString(9, vo.getEmail());
+			pstmt.setString(10, vo.getContent());
+			pstmt.setString(11, vo.getPhoto());
+			pstmt.setString(12, vo.getUserInfo());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류: " +e.getMessage());
+		}	finally {
+			pstmtClose();
+		}		
+		return res;
+	}
+	
+	
 	
 	
 	

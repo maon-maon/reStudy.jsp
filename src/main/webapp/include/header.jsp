@@ -7,7 +7,7 @@
 
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <div class="jumbotron text-center" style="margin-bottom:0; height:170px; margin:0px; line-height: 30px; 
-			padding-top: 40px; background-color:#006e51; color:white; 
+			padding-top: 40px; background-color:#004C06; color:white; 
 			font-family: 'Chakra Petch', serif;  font-weight: 400;  font-style: normal;">
   <p style="font-size: 50px">House52의 reStudy Room</p>
   <p>(현 웹사이트는 반응형으로 제작되었습니다.)</p> 

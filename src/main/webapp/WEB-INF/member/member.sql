@@ -21,7 +21,7 @@ create table member (
 	todayCnt  int default 0,						/* 오늘 방문 카운트*/
 	startDate datetime default now(), 	/* 최초 가입일*/
 	lastDate  datetime default now(),		/* 마지막 접속일(탈퇴시는 탈퇴한 날짜)*/
-	salt			char(8) not null default '12345678',					/* 비밀번호 보안을 위한 salt*/			
+	-- salt			char(8) not null default '12345678',					/* 비밀번호 보안을 위한 salt*/			
 	primary key(idx),
 	unique key(mid)
 );
@@ -31,3 +31,9 @@ select * from member;
 
 insert into member values(default,'admin','asdf1234','관리맨','관리자','남자',default,'010-1234-5678','28575 충북 청주시 서원구 사직대로 109, 4층','admin@kakao.com','관리자입니다.'
 	, default,default,default,default,default,default,default,default,default,default);
+	
+alter table member auto_increment = 1;
+
+show table status like 'member';
+
+SHOW TABLE STATUS WHERE Name = 'member';

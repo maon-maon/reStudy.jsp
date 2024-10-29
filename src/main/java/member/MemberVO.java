@@ -23,6 +23,9 @@ public class MemberVO {
 	private String lastDate;
 	private String salt;
 	
+	private String tempMid; 
+	private String tempnickName;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -149,6 +152,18 @@ public class MemberVO {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+	public String getTempMid() {
+		return tempMid;
+	}
+	public void setTempMid(String tempMid) {
+		this.tempMid = tempMid;
+	}
+	public String getTempnickName() {
+		return tempnickName;
+	}
+	public void setTempnickName(String tempnickName) {
+		this.tempnickName = tempnickName;
+	}
 	
 	@Override
 	public String toString() {
@@ -156,6 +171,8 @@ public class MemberVO {
 				+ ", gender=" + gender + ", birthday=" + birthday + ", tel=" + tel + ", address=" + address + ", email=" + email
 				+ ", content=" + content + ", photo=" + photo + ", level=" + level + ", userInfo=" + userInfo + ", userDel="
 				+ userDel + ", point=" + point + ", visitCnt=" + visitCnt + ", todayCnt=" + todayCnt + ", startDate="
-				+ startDate + ", lastDate=" + lastDate + ", salt=" + salt + "]";
+				+ startDate + ", lastDate=" + lastDate + ", salt=" + salt + ", tempMid=" + tempMid + ", tempnickName="
+				+ tempnickName + "]";
 	}
+	
 }

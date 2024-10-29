@@ -31,6 +31,7 @@
       <div class="col"><button type="submit" class="btn btn-outline-success form-control mb-2" >로그인</button></div>
       <div class="col"><button type="reset" class="btn btn-outline-warning form-control mb-2" >다시입력</button></div>
       <div class="col"><button type="button" onclick="location.href='${ctp}/'" class="btn btn-outline-primary form-control">돌아가기</button></div>
+      <div class="col"><button type="button" onclick="location.href='MemberJoin.mem'" class="btn btn-outline-secondary form-control">회원가입</button></div>
     </div>
 	</form>
 </div>

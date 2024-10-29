@@ -1,11 +1,15 @@
 package member;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import common.SecurityUtil;
 
 public class MemberLoginOkCommand implements MemberInterface {
 
@@ -18,19 +22,27 @@ public class MemberLoginOkCommand implements MemberInterface {
 		
 		MemberDAO dao = new MemberDAO();
 		
-		MemberVO vo = dao.MemberIdCheck(mid);
+		MemberVO vo = dao.getMemberIdCheck(mid);
 		
-		if(vo.getPwd() == null) {
-			request.setAttribute("message", "회원아이디가 없습니다. \\n확인하고 다시 로그인하세요");
+	//241029 저장괸 비밀번호에서 salt키를 분리시켜서 다시 암호화 후 비교처리한다.
+		String salt = vo.getPwd().substring(0,3);
+		
+		SecurityUtil security = new SecurityUtil();
+		pwd = security.encryptSHA256(salt+pwd);
+		
+		
+		//if(vo.getPwd() == null) {
+		if(!vo.getPwd().substring(3).equals(pwd)) {
+			request.setAttribute("message", "회원 정보가 없습니다. \\n확인하고 다시 로그인하세요");
 			request.setAttribute("url", "MemberLogin.mem");
 			return;
 		}
-		
+		/*241029 필요 없어짐
 		if(!vo.getPwd().equals(pwd)) {
 			request.setAttribute("message", "비밀번호가 틀립니다. \\n확인하고 다시 로그인하세요");
 			request.setAttribute("url", "MemberLogin.mem");
 			return;
-		}
+		} */
 		
 		/* 숙제 */
 		// 정상 인증이 완료되었을 때 처리할 내용들을 기술 //=로그인 됨
@@ -41,7 +53,22 @@ public class MemberLoginOkCommand implements MemberInterface {
 		
 		
 		// 방문 포인트 10증가, 방문 카운트(총/오늘) 1증가, 마지막날짜(최종방문일자) 수정 
-		dao.setPointPlus(mid);
+		//dao.setPointPlus(mid);
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String strToday = sdf.format(today);
+		
+		if(!strToday.equals(vo.getLastDate().substring(0,10))) {
+			vo.setTodayCnt(1);
+			vo.setPoint(vo.getPoint()+10);
+		}
+		else {
+			vo.setTodayCnt(vo.getTodayCnt()+1);
+			if(vo.getTodayCnt() <= 5) vo.setPoint(vo.getPoint()+10);
+		}
+		
+		
+		
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sMid", "mid");
