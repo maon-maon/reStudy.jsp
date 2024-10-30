@@ -22,10 +22,10 @@ public class PassCheckOkCommand implements StudyInterface {
 		else if(flag == 2) temp = "문자 비밀번호";
 		else if(flag == 3) temp = "숫자/문자 비밀번호";
 		
-		System.out.println("원본자료 : ");
-		System.out.println("flag : " + flag);
-		System.out.println("mid : " + mid);
-		System.out.println("pwd : " + pwd);
+//		System.out.println("원본자료 : ");
+//		System.out.println("flag : " + flag);
+//		System.out.println("mid : " + mid);
+//		System.out.println("pwd : " + pwd);
 		
 		int salt = 0x1234ABCD;
 		int encPwd = 0, decPwd;

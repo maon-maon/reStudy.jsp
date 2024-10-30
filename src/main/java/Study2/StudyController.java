@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Study2.ajax.AjaxIdCheck0Command;
+import Study2.ajax.AjaxIdCheck1Command;
+import Study2.ajax.AjaxPointCheckCommand;
 import Study2.password.PassCheckOkCommand;
 
 @SuppressWarnings("serial")
@@ -29,6 +32,24 @@ public class StudyController extends HttpServlet {
 			command = new PassCheckOkCommand();
 			command.execute(request, response);
 			viewPage += "/password/passCheck.jsp";
+		}
+		else if(com.equals("/AjaxTest")) {
+			viewPage += "/ajax/ajaxTest.jsp";
+		}
+		else if(com.equals("/AjaxIdCheck0")) {
+			command = new AjaxIdCheck0Command();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/AjaxIdCheck1")) {
+			command = new AjaxIdCheck1Command();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/AjaxPointCheck")) {
+			command = new AjaxPointCheckCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		

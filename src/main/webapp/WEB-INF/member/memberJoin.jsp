@@ -94,7 +94,7 @@
     <table class="table table-bordered">
       
       <!-- 중복체크 -->
-      <tr>
+    	<tr>
         <th ><label for="mid" class="form-label">아이디</label></th>
         <td  >
         	<div class=" input-group mb-1">
@@ -142,16 +142,16 @@
       <tr class="mb-2">
         <th ><label for="tel1" class="form-label">전화번호</label></th>
         <td  >
-        <select class="" id="tel1" name="tel1">
-            <option >010</option>
-            <option value="02">서울</option>
-            <option value="041">천안</option>
-            <option value="042">대전</option>
-            <option value="043">청주</option>
-            <option value="031">인천</option>
-         </select>
-         -<input type="text" class="" id="tel2" name="tel2" size="4" maxlength="4" />
-         -<input type="text" class="" id="tel3" name="tel3" size="4" maxlength="4" />
+        <select class="" id="tel1" name="tel1" >
+	        <option >010</option>
+	        <option value="02">서울</option>
+	        <option value="041">천안</option>
+	        <option value="042">대전</option>
+	        <option value="043">청주</option>
+	      	<option value="031">인천</option>
+        </select>
+        	-<input type="text" class="" id="tel2" name="tel2" size="4" maxlength="4" />
+        	-<input type="text" class="" id="tel3" name="tel3" size="4" maxlength="4" />
         </td>
       </tr>
       
@@ -159,13 +159,14 @@
       <tr class="mb-2">
         <th class="text-center"><label for="address" class="form-label">주소</label></th>
         <td >
-		      <div class="input-group mb-1">
+		    	<div class="input-group mb-1">
 			      <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호를 검색하세요" class="form-control" />
 						<div class="input-group-append">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"  class="form-control btn btn-secondary" />
 						</div>
 		      </div>
 					<input type="text" id="sample6_address" name="address" placeholder="주소" class="form-control" readonly />
+					
 					<div class="input-group mt-1">
 						<input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소" class="form-control"  />
 						<div class="input-group-append">
@@ -173,6 +174,7 @@
 						</div>
 		      </div>
         </td>
+      </tr>
       
       <tr class="mb-2">
         <th >이메일</th>
@@ -211,12 +213,12 @@
 			  <td class="text-right">
 		    	<%-- <button type="button" onclick="location.href='${ctp}/'" class="btn btn-info mb-2">돌아가기</button> --%>
 		    	<button type="button" onclick="history.back()" class="btn btn-info mb-2">돌아가기</button>
-        </td>
+      	</td>
       </tr>
     </table>
     <input type="hidden" name="tel" id="tel" />
     <input type="hidden" name="email" id="email" />
-    <input type="hidden" name="address2" />
+  	<input type="hidden" name="address2" />
   </form>
   <div name="demo" id="demo">
   </div>

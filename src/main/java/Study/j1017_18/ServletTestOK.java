@@ -15,7 +15,7 @@ public class ServletTestOK extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid");
-		System.out.println("mid : "+mid);
+		//System.out.println("mid : "+mid);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sMid", mid);

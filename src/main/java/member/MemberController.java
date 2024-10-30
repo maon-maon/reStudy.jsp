@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 @WebServlet("*.mem")
@@ -20,7 +21,12 @@ public class MemberController extends HttpServlet{
 		String com = request.getRequestURI();
 		com = com.substring(com.lastIndexOf("/"), com.lastIndexOf("."));
 
+		HttpSession session = request.getSession();
+		int level = session.getAttribute("sLevel")==null ? 999 : (int)session.getAttribute("sLevel");
+		
 		if(com.equals("/MemberLogin")) {
+			command = new MemberLoginCommand();
+			command.execute(request, response);
 			viewPage += "/memberLogin.jsp";
 		}
 		else if(com.equals("/MemberLoginOk")) {
@@ -32,11 +38,6 @@ public class MemberController extends HttpServlet{
 			command = new MemberLogoutOkCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
-		}
-		else if(com.equals("/MemberMain")) {
-			command = new MemberMainOkCommand();
-			command.execute(request, response);
-			viewPage += "/memberMain.jsp";
 		}
 		else if(com.equals("/MemberJoin")) {
 			viewPage += "/memberJoin.jsp";
@@ -51,8 +52,17 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberIdCheck.jsp";
 		} 
-		
-		
+		else if(level > 4) {
+			request.setAttribute("message", "로그인 후 사용하세요.");
+			request.setAttribute("url", "/MemberLogin.mem");
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/MemberMain")) {
+			command = new MemberMainOkCommand();
+			command.execute(request, response);
+			viewPage += "/memberMain.jsp";
+		}
+		//MemberList.mem
 		
 		
 		

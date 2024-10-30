@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
 
-		System.out.println(mid);
+		//System.out.println(mid);
 		
 		MemberDAO dao = new MemberDAO();
 		
@@ -51,6 +52,28 @@ public class MemberLoginOkCommand implements MemberInterface {
 		// 세션:처리완료된 자료들은  작업수행이 지속되는 동안 꼭 필요한 정보만을 세션에 저장처리 
 		/* 원래는 상기의 내용을 처리해야 함*/
 		
+	// 쿠키:아이디를 쿠키로 저장처리
+		String idSave = request.getParameter("idSave")==null ? "off" : "on";
+		//System.out.println("idSave :"+idSave);
+		Cookie cookieMid = new Cookie("cMid", mid);
+		cookieMid.setPath("/");
+		if(idSave.equals("on")) {
+			cookieMid.setMaxAge(60*60*24*7);
+		}
+		else {
+			cookieMid.setMaxAge(0);
+		}
+		response.addCookie(cookieMid);
+		
+	//세션에 저장할 항목 : mid, nickName //DB에서 꺼내기 번거로운것 세션에 저장해서 사용
+		HttpSession session = request.getSession();
+		session.setAttribute("sMid", mid);
+		session.setAttribute("sNickName", vo.getNickName());
+		session.setAttribute("sLevel", vo.getLevel());
+		session.setAttribute("sLastDate", vo.getLastDate());
+		
+		
+		
 		
 		// 방문 포인트 10증가, 방문 카운트(총/오늘) 1증가, 마지막날짜(최종방문일자) 수정 
 		//dao.setPointPlus(mid);
@@ -68,11 +91,6 @@ public class MemberLoginOkCommand implements MemberInterface {
 		}
 		
 		
-		
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("sMid", "mid");
-		session.setAttribute("sNickName", vo.getNickName());
 		
 		request.setAttribute("message", mid+"님 로그인되었습니다.");
 		request.setAttribute("url", "MemberMain.mem");
