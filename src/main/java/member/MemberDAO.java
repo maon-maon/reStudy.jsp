@@ -36,13 +36,23 @@ public class MemberDAO {
 	//Member테이블에서 아이디 검색하기
 	//아이디 중복 확인
 	//닉네임 중복 확인
-	public MemberVO getMemberIdCheck(String mid) {
+	public MemberVO getMemberIdCheck(String str) {
 		vo = new MemberVO();
-		
 		try {
-			sql = "select * from member where mid = ?";
+			int sw = 0;
+			if(str.indexOf("_nickName") != -1) {
+				str = str.substring(0, str.indexOf("_nickName"));
+				sw =1;
+			}
+			
+			if(sw == 0) {
+				sql = "select * from member where mid = ? and userDel !='OK'";
+			}
+			else {
+				sql = "select * from member where nickName = ?";
+			}
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mid);
+			pstmt.setString(1, str);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -69,10 +79,10 @@ public class MemberDAO {
 				//vo.setSalt(rs.getString("salt"));
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL 오류: " +e.getMessage());
-		}	finally {
+			System.out.println("SQL 오류: "+e.getMessage());
+		} finally {
 			rsClose();
-		}		
+		}	
 		return vo;
 	}
 	
@@ -115,6 +125,38 @@ public class MemberDAO {
 			pstmtClose();
 		}		
 		return res;
+	}
+	
+	// 방문시 업데이트 내용
+	public void setMemberInfoUpdate(MemberVO vo) {
+		try {
+			sql = "update member set point=?, visitCnt=visitCnt+1, todayCnt=?, lastDate=now() where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getPoint());
+			pstmt.setInt(2, vo.getTodayCnt());
+			pstmt.setString(3, vo.getMid());
+			pstmt.execute();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류: " +e.getMessage());
+		}	finally {
+			pstmtClose();
+		}		
+	}
+	
+//회원 등업시켜주기
+	public void setMemberLevelUpdate(int idx, int level) {
+		try {
+			sql = "update member set level =? where idx =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, level);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 오류: " +e.getMessage());
+		}	finally {
+			pstmtClose();
+		}		
+		
 	}
 	
 	

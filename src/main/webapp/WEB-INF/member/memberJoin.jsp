@@ -16,32 +16,75 @@
   <script src="${ctp}/js/woo.js"></script>
 <script>
 	'use strict'
-	let sw = 0;
+	/* let sw = 0; */
+	let idCheckSw = 0;
+	let nickCheckSw = 0;
+	
+	// 정규식 이용 유효성 검사
+	let regMid = /^[a-zA-Z0-9_]{4,20}$/;
+	let regNick = /^[가-힣0-9_]{2,20}$/;
+	let regName = /^[가-힣a-zA-Z0-9_]{2,20}$/;
+	let regPwd = /^[a-zA-Z0-9]{4,20}$/;
+	// 이메일 주소형식체크
+	// 전화번호 형식 체크
 	
 	function fCheck() {
+		let mid = myform.mid.value;
+  	let pwd = myform.pwd.value;
+  	let nickName = myform.nickName.value;
+  	let name = myform.name.value;
+		
+		let tel2 = myform.tel2.value.trim(); 
+		let tel3 = myform.tel3.value.trim();
+		if(tel2 == "") tel2 = " ";
+		if(tel3 == "") tel3 = " ";
+		
 		let tel = myform.tel1.value+" -"+myform.tel2.value+" -"+myform.tel3.value;
 		let email = myform.email1.value+"@"+myform.email2.value;
-		let address = myform.postcode.value+" /"+myform.address.value+" /"+myform.detailAddress.value+" /"+myform.extraAddress.value;
+		let address = myform.postcode.value+" /"+myform.address.value+" /"+myform.detailAddress.value+" /"+myform.extraAddress.value+" ";
+		
+		if(!regMid.test(mid)) {
+  		alert("아이디는 4~20자리의 영문 소/대문자와 숫자, 언더바(_)만 사용가능합니다.");
+  		myform.mid.focus();
+  		return false;
+  	}
+  	else if(pwd.length < 4 || pwd.length > 20) {
+      alert("비밀번호는 4~20 자리로 작성해주세요.");
+      myform.pwd.focus();
+      return false;
+    }
+    else if(!regNick.test(nickName)) {
+      alert("닉네임은 2자리 이상 한글만 사용가능합니다.");
+      myform.nickName.focus();
+      return false;
+    }
+    else if(!regName.test(name)) {
+      alert("성명은 2자리 이상 한글과 영문대소문자만 사용가능합니다.");
+      myform.name.focus();
+      return false;
+    }
+		
 		
 		myform.tel.value = tel;
 		myform.email.value = email;
 		myform.address2.value = address;
 		
-		myform.submit();
+		//myform.submit();
 	}
 	
 	//아이디 중복체크
 	function idCheck() {
 		let mid = myform.mid.value;
 		
-		if(mid.trim() == "") {
-			alert("아이디를 입력하세요");
+		if(!regMid.test(mid)) {
+			alert("아이디는 4~20자리의 영문 소/대문자와 숫자, 언더바(_)만 사용가능합니다.");
 			myform.mid.focus();
 		}
 		else {
 			let url = "MemberIdCheck.mem?mid="+mid;
 			window.open(url, "idCheckWindow", "width=450px, height=250px");
-			sw++;
+			//sw++;
+			idCheckSw = 1;
 		}
 	}
 	
@@ -49,20 +92,20 @@
 	function nickCheck() {
 		let nickName = myform.nickName.value;
 		
-		if(nickName.trim() == "") {
-			alert("닉네임을 입력하세요");
+		if(!regNick.test(nickName)) {
+			alert("닉네임은 2자리 이상 한글만 사용가능합니다.");
 			myform.nickName.focus();
 		}
 		else {
 			let url = "MemberNickNameCheck.mem?nickName="+nickName;
-			window.open(url, nickCheckWindow,"width=450px, height=250px")
-			sw++;
+			window.open(url, 'nickCheckWindow',"width=450px, height=250px")
+			//sw++;
+			nickCheckSw = 1;
 		}
 	}
 	
-	
 	 //회원가입 버튼 : 중복확인 체크
-	function joinCheck() {
+	 function joinCheck() {
 		if(sw == 0) {
 			alert("아이디를 중복체크하세요");
 			myform.midBtn.focus();
@@ -72,7 +115,50 @@
 			myform.midBtn.focus();
 		}
 		else myform.submit();
-	} 
+	}  
+	
+	//Ajax로 닉네임 중복체크
+	function nickNameAjaxCheck() {
+		let nickName = myform.nickName.value;
+		if(!regNick.test(nickName)) {
+			alert("닉네임은 2자리 이상 한글만 사용가능합니다.");
+			myform.nickName.focus();
+			return false;
+		}
+		
+		nickCheckSw = 1;
+		/* 
+		$.ajax({
+			type : "get",
+			url  : "NickNameAjaxCheck.mem",
+			data : {nickName : nickName},
+			
+			success: function(res) {
+				alert("gogogo : " + res);
+				if(res != '0') alert("111닉네임이 중복되었습니다.\n다른 닉네임을 사용하세요.");
+				else alert("1111사용할 수 있는 닉네임입니다. \n계속 진행합니다.");
+			},
+			error: function() {
+				alert("전송오류");
+			}
+		});
+		*/
+		$.ajax({
+			type : "get",
+			url  : "MemberNickAjaxCheck.mem",
+			data : {nickName : nickName},
+			success:function(res) {
+				if(res != '0') alert("성공");
+				else  alert("실패");
+			},
+			error : function() {
+				alert("전송오류!!");
+			}
+		});
+		
+	}
+	
+	
 </script>
 <style>
 	th {
@@ -122,7 +208,8 @@
         	<div class="input-group mb-1">
 	        	<input type="text" name="nickName" id="nickName" placeholder="입력하세요" class="form-control" required />
 	        	<div class="input-group-append">
-		        	<input type="button" value="닉네임 중복체크" onclick="nickCheck()" class="btn btn-secondary" />
+		        	<!-- <input type="button" value="닉네임 중복체크" onclick="nickCheck()" class="btn btn-secondary" /> -->
+		        	<input type="button" value="닉네임 중복체크" onclick="nickNameAjaxCheck()" class="btn btn-secondary" />
 	        	</div>
         	</div>
         </td>

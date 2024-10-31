@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.SecurityUtil;
+import guest.GuestDAO;
 
 public class MemberLoginOkCommand implements MemberInterface {
 
@@ -72,7 +73,8 @@ public class MemberLoginOkCommand implements MemberInterface {
 		session.setAttribute("sLevel", vo.getLevel());
 		session.setAttribute("sLastDate", vo.getLastDate());
 		
-		
+		String strLevel = strLevelProcess(vo.getLevel());
+		session.setAttribute("strLevel", strLevel);
 		
 		
 		// 방문 포인트 10증가, 방문 카운트(총/오늘) 1증가, 마지막날짜(최종방문일자) 수정 
@@ -90,9 +92,34 @@ public class MemberLoginOkCommand implements MemberInterface {
 			if(vo.getTodayCnt() <= 5) vo.setPoint(vo.getPoint()+10);
 		}
 		
+		dao.setMemberInfoUpdate(vo);
+		
+		// 준회원인경우 정회원으로 자동등업처리(조건:총방문회수 10회이상, 방명록글수 2개이상)
+		int levelsw = 0;
+		if(vo.getLevel() == 1) { //준회원일때만 하애릐 내용을 처리
+			GuestDAO gDao = new GuestDAO();
+			vo = dao.getMemberIdCheck(mid);
+			if(vo.getVisitCnt() >= 10 && gDao.getGuestCnt(mid, vo.getName(), vo.getNickName()) >= 2) {
+				dao.setMemberLevelUpdate(vo.getIdx(), 2); //고유번호와 등업시킬레벨을 전송 =>강제로 정회원으로 등업
+				session.setAttribute("sLevel", 2);
+				session.setAttribute("strLevel", strLevelProcess(2));
+				levelsw = 1;
+			}
+		}
+		if (levelsw != 0) request.setAttribute("message", mid+"님 축하합니다. \\n정회원이 되셨습니다.");
+		else request.setAttribute("message", mid+"님 로그인되었습니다.");
 		
 		
-		request.setAttribute("message", mid+"님 로그인되었습니다.");
 		request.setAttribute("url", "MemberMain.mem");
+	}
+
+	//회원 등급별 등급명칭을 strLevel변수에 저장한다.
+	private String strLevelProcess(int level) {
+		String strLevel = "";
+		if(level == 0) strLevel = "관리자";
+		else if(level == 1) strLevel = "준회원";
+		else if(level == 2) strLevel = "정회원";
+		else if(level == 3) strLevel = "우수회원";
+		return strLevel;
 	}
 }

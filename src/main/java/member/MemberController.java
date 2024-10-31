@@ -52,13 +52,18 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberIdCheck.jsp";
 		} 
+		else if(com.equals("/MemberNickNameCheck")) {
+			command = new MemberNickNameCheckCommand();
+			command.execute(request, response);
+			viewPage += "/memberNicknameCheck.jsp";
+		} 
 		else if(level > 4) {
 			request.setAttribute("message", "로그인 후 사용하세요.");
 			request.setAttribute("url", "/MemberLogin.mem");
 			viewPage = "/include/message.jsp";
 		}
 		else if(com.equals("/MemberMain")) {
-			command = new MemberMainOkCommand();
+			command = new MemberMainCommand();
 			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
