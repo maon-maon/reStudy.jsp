@@ -13,6 +13,11 @@ import Study2.ajax.AjaxIdCheck0Command;
 import Study2.ajax.AjaxIdCheck1Command;
 import Study2.ajax.AjaxPointCheckCommand;
 import Study2.password.PassCheckOkCommand;
+import Study2.pdstest.FileDeleteCommand;
+import Study2.pdstest.FileDownloadCommand;
+import Study2.pdstest.FileUpload1OkCommand;
+import Study2.pdstest.FileUpload3OkCommand;
+import Study2.pdstest.javaFileDownloadCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.st")
@@ -51,7 +56,40 @@ public class StudyController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
-		
+		else if(com.equals("/FileUpload")) {
+			viewPage += "/pdstest/fileUpload.jsp";
+		}
+		else if(com.equals("/FileUpload1")) {
+			viewPage += "/pdstest/fileUpload1.jsp";
+		}
+		else if(com.equals("/FileUpload1Ok")) {
+			command = new FileUpload1OkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/FileUpload3")) {
+			viewPage += "/pdstest/fileUpload3.jsp";
+		}
+		else if(com.equals("/FileUpload3Ok")) {
+			command = new FileUpload3OkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/FileDownload")) {
+			command = new FileDownloadCommand();
+			command.execute(request, response);
+			viewPage += "/pdstest/fileDownload.jsp";
+		}
+		else if(com.equals("/javaFileDownload")) {
+			command = new javaFileDownloadCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/FileDelete")) {
+			command = new FileDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		
 		

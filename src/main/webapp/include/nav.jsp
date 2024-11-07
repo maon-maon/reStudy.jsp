@@ -34,6 +34,7 @@
 				      <a class="dropdown-item" href="${ctp}/study2/database/DbList">Database 연습</a>
 				      <a class="dropdown-item" href="PassCheckForm.st">암호화 연습</a>
 				      <a class="dropdown-item" href="AjaxTest.st">AJAX 연습</a>
+				      <a class="dropdown-item" href="FileUpload.st">파일 업로드 연습</a>
 				    </div>
 				  </div>
 	      </li>  
@@ -63,7 +64,7 @@
        
       <li class="nav-item">
 	      <c:if test="${empty sNickName}"><a class="nav-link" href="MemberLogin.mem">로그인</a></c:if>
-	      <c:if test="${!empty sNickName}"><a class="nav-link" href="MemberLogout.mem">로그아웃</a></c:if>
+	      <c:if test="${!empty sNickName}"><a class="nav-link" href="MemberLogout.mem">${sMid}님 로그아웃</a></c:if>
       </li>  
       
       <li class="nav-item">
